@@ -1,0 +1,15 @@
+Package: data.flow
+Type: Package
+Title: ETL toolchain for data flows
+Version: 0.0.1
+Author: The package author
+Maintainer: The package maintainer <yourself@somewhere.net>
+Description: Provides ETL features for data flows
+    Extract data from resources
+    Transform data: conversion and aggregation
+    Load data to BI users
+    May the flow be with you...
+Depends: data.table, pxR, rlist
+License: MIT
+Encoding: UTF-8
+LazyData: true
