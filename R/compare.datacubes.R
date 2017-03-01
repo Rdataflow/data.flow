@@ -9,7 +9,7 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
         r$status<-0
         r$level<-"ID"
         r$title<-"NOCHANGE"
-        r$msg<-"Datensätze sind identisch."
+        r$msg$de<-"Datensätze sind identisch."
     }
     else {
         if(identical(names(new),names(old))==FALSE) {
@@ -20,7 +20,7 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
             r$status<-99
             r$level<-"ERROR"
             r$title<-"ERROR"
-            r$msg<-"Datensätze haben unterschiedliche Dimensionen."
+            r$msg$de<-"Datensätze haben unterschiedliche Dimensionen."
         }
         else {
             ### same dimensions...
@@ -70,7 +70,7 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
             r$status<-1
             r$level<-"TODO: delta INFO ... or ... WARN ..."
             r$title<-"CHANGED"
-            r$msg<-"Datensätze haben unterschiedliche Werte."
+            r$msg$de<-"Datensätze haben unterschiedliche Werte."
         }
     }
     return(r)

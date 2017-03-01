@@ -20,6 +20,9 @@ flow.extract <- function(resource, log.file, log.console) {
         cat(log.console, "reading.old... ")
         dc.old <- extract.read(resource$input.old, resource$type)
 
+        ###fake difference to test for verify response
+        dc.old[1,value:=1]
+
         #verify structure and range of values
         cat(log.console, "verifying... ")
         extract.verify(dc, dc.old, val=c("Wert","wert","Value","value"),

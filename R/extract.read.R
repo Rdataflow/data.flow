@@ -4,14 +4,19 @@
 extract.read <- function(file.input, type) {
     if(type=="px") {
         dc <- as.data.table(read.px(file.input, na.strings = c('"."','".."','"..."','"...."','"....."','"......"','":"')))
-        for (i in 1:(length(names(dc))-1)) {
-            levels(dc[[i]]) <- enc2native(levels(dc[[i]]))
+        for (i in seq(names(dc))) {
+            if (is.character(levels(dc[[i]]))) {
+                levels(dc[[i]]) <- enc2native(levels(dc[[i]]))
+            }
         }
     }
 
-    if(type=="csv") {
-        dc <- fread(file.input)
+    if (type == "csv") {
+        dc <- fread(file.input, showProgress = FALSE)
     }
+
+    # replace NA values with empty
+    # dc[is.na(dc)] <- ""
 
     return(dc)
 }

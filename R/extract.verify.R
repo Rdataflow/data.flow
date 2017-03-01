@@ -6,10 +6,12 @@ extract.verify <- function(datacube, datacube.old, val=c("Wert","wert","Value","
     #code auf WARN, falls add elem != r$timekey
     #code auf WARN, falls del elem
 
-    if (r$max >= threshold) {
-        #ToDo:
-        #code auf WARN, falls max > threshold
-        #...
+    if (is.numeric(r$max)) {
+        if (r$max >= threshold) {
+            #ToDo:
+            #code auf WARN, falls max > threshold
+            #...
+        }
     }
 
 
