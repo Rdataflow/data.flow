@@ -50,7 +50,7 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
             add.lines<-delta[is.na(na.old)][,c("na.new","na.old"):=NULL]
             del.lines<-delta[is.na(na.new)][,c("na.new","na.old"):=NULL]
             changed.lines<-delta[!is.na(na.new)&!is.na(na.old)][,c("na.new","na.old"):=NULL]
-            changed.lines[,rel.change:=(changed.lines[[val.new]]/changed.lines[[val.old]]-1)]
+            changed.lines[,rel.change:=(changed.lines[[val.new]]/changed.lines[[val.old]]-1)][rel.change==Inf,rel.change:=NA]
 
 
             ### Ausgabe Anzahl Änderungen pro Jahr
@@ -59,7 +59,6 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
                 names(summary.changed)<-c(r$timekey,"count_diff")
                 r$changed<-summary.changed
                 r$max<-changed.lines$rel.change[which.max(abs(changed.lines$rel.change))]
-                r$max<-sprintf("%+.1f%%",r$max*100)
 
                 # write diff details to dedicated logfile
                 now<-Sys.time()
