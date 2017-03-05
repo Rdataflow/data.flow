@@ -4,7 +4,8 @@
         as.data.table(
             list(
                 name = "ch.admin.bfs.forststat.holzprod",
-                url = "https://www.pxweb.bfs.admin.ch/DownloadFile.aspx?file=px-x-0703010000_102",
+                #url = "https://www.pxweb.bfs.admin.ch/DownloadFile.aspx?file=px-x-0703010000_102",
+                url = "https://www.pxweb.bfs.admin.ch/DownloadFile.aspx?file=px-x-1502020100_302",
                 type = "px"
             )
         )

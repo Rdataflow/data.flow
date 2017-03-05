@@ -5,6 +5,6 @@ flow.transform <- function(dc, transformer = NULL) {
     ###
     ###
 
-    stopifnot(is.data.table(dc$DATA))
+    stopifnot(is.data.table(dc$DATA$value))
     return(dc)
 }

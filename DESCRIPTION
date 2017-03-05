@@ -9,7 +9,7 @@ Description: Provides ETL features for data flows
     Transform data: conversion and aggregation
     Load data to BI users
     May the flow be with you...
-Depends: data.table, pxR, rlist, tcltk
+Depends: data.table, pxR, rlist, tcltk, stringi
 License: MIT
 Encoding: UTF-8
 LazyData: true
