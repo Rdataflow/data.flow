@@ -8,7 +8,7 @@ extract.verify <- function(datacube, datacube.old, val=c("Wert","wert","Value","
 
 
     ## output to log & console
-    #verify.log.summary(r)
+    #verify.log.summary(r, log.file)
     #    spalte32<-collapse.changes.in.elem.per.dim(r$elem[setdiff(names(r$elem),r$timekey)])
     #    max<-sprintf("%+.1f%%",r$max*100)
     #    ...compose summary.log (csv)

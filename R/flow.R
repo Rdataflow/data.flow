@@ -1,27 +1,25 @@
 #make data flow from source to destination
-flow <- function(resources, dir.commit, dir.output, dir.input, dir.input.old, dir.log, output.type, log.file) {
+flow <- function(resources, dir.commit, dir.output, dir.input, dir.input.old, dir.log, output.type = "csv", log.file) {
 
-    flow.init(resources, dir.commit, dir.output, dir.input, dir.input.old, dir.log, output.type, log.file)
+    resources <- flow.init(resources, dir.commit, dir.output, dir.input, dir.input.old, dir.log, output.type, log.file)
 
     # loop over datacubes
     for (i in 1:nrow(resources)) {
-        i.msg <- paste0("\n", i, " - ", str_sub(resources[i]$name,-30))
+        name.short <- stri_replace_first_regex(resources[i]$name, "^(.{13})....+(.{14})$", "$1...$2")
+        i.msg <- paste0("\r", i, " - ", name.short)
         ####################
-        log.console<-paste0(i.msg, " - EXTRACTING ... ")
-        dc <- flow.extract(resources[i], log.file, log.console)
+        msg.console<-paste0(i.msg, " - EXTRACTING ... ")
+        dc <- flow.extract(resources[i], log.file, msg.console)
         ####################
         cat(i.msg, " - TRANSFORMING ... ", sep = "")
         dc<-flow.transform(dc, resources[i]$transformer)
         ####################
         cat(i.msg, " - LOADING ... ", sep = "")
-        flow.load(dc, resources[i]$output, output.type = output.type, val="value") ### ToDo: autodetect val!!!
-        cat("done\n")
+        flow.load(dc, resources[i]$output, output.type = output.type)
+        # cat("done")
         rm(dc)
     }
     ########################
-    #on success
-    cat("COMMITTING all data ... ")
-    #flow.commit(dir.output, dir.commit)
-    cat("done\n")
-    #msgBox <- tk_messageBox(title = "SUCCESS", message = "data import completed succesfully!", icon = "info", type = "ok")
+    #on success COMMIT
+    flow.commit(resources$output, resources$commit, log.file)
 }
