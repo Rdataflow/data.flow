@@ -48,9 +48,14 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
             delta<-merge(newlines,oldlines,by=r$key,suffixes=c(".new",".old"),all=TRUE)
 
             add.lines<-delta[is.na(na.old)][,c("na.new","na.old"):=NULL]
+            r$add.lines <- nrow(add.lines)
+
             del.lines<-delta[is.na(na.new)][,c("na.new","na.old"):=NULL]
+            r$del.lines <- nrow(del.lines)
+
             changed.lines<-delta[!is.na(na.new)&!is.na(na.old)][,c("na.new","na.old"):=NULL]
             changed.lines[,rel.change:=(changed.lines[[val.new]]/changed.lines[[val.old]]-1)][rel.change==Inf,rel.change:=NA]
+            r$changed.lines <- nrow(changed.lines)
 
 
             ### Ausgabe Anzahl Änderungen pro Jahr
