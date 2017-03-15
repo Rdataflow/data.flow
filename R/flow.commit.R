@@ -14,7 +14,7 @@ flow.commit <- function(resources.output, resources.commit, log.file, dir.commit
         system2(git.exe, "commit -a -m autocommit")
     }
 
-    cat("\n === COMMITTED SUCCESSFULLY ===                                             \n")
+    cat("\n=== COMMITTED SUCCESSFULLY ===                                             \n")
     cat("dataflow loaded in :", dir.commit, "\n\n")
 
     l <- data.table('Timestamp'=Sys.time(), 'csv_name'="ALL", 'Status'="commit", 'Code'="-1")

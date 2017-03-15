@@ -1,34 +1,24 @@
 extract.verify <- function(datacube, datacube.old, val=c("Wert","wert","Value","value"),
-                           timekey=c("Jahr","jahr","Year","year"), log.detail, log.file, resource.name, threshold = 0.01) {
+                           timekey=c("Jahr","jahr","Year","year"), log.detail, log.file, log.email, resource.name, warn.threshold, lang = "de") {
 
-    r <- compare.datacubes(datacube, datacube.old, val, timekey, log.detail)
+    r <- compare.datacubes(datacube, datacube.old, val, timekey, log.detail, warn.threshold)
 
-    #code auf ERR, falls add elem != r$timekey
-    #code auf ERR, falls del elem
+    r <- eval.compare.datacubes(r)
 
+    ## output to log
+    log.to.file(r, resource.name, log.file)
 
-    ## output to log & console
-    #verify.log.summary(r, log.file)
-    #    spalte32<-collapse.changes.in.elem.per.dim(r$elem[setdiff(names(r$elem),r$timekey)])
-    #    max<-sprintf("%+.1f%%",r$max*100)
-    #    ...compose summary.log (csv)
-    #verify.log.console(r)
-    #    ...compose console output
-    #
-    #ev. tk.message.box(TITLE, MSG)
-    if (is.numeric(r$max) & length(r$max)>0) {
-        if (abs(r$max) >= threshold) {
-            #ToDo:
-            #code auf WARN, falls max > threshold
-            #...
-            max.change<-sprintf("%+.1f%%",r$max*100)
-            msgBox <- tk_messageBox(title = "WARNING", message = paste0("WARNING: ", resource.name, "\nData changed by ", max.change), icon = "warning", type = "ok")
-        }
-    }
+    ## output to console
+    log.to.console(r, resource.name)
 
-    # stop on error
-    if(r$status>3) {
-        msgBox <- tk_messageBox(title = "ERROR", message = paste0("ERROR: ", resource.name, "\nData structure broken"), icon = "error", type = "ok")
-        stop("ERROR: dataset structure differs!!!")
+    ## alert via email
+    log.via.email(r, resource.name, log.email, lang)
+
+    ## output as msgbox
+    log.to.msgbox(r, resource.name, lang)
+
+    # stop on error, if we didn't stop already
+    if(r$code >= 64) {
+        stop(paste("ERROR:", r$msg[[lang]]), "\n\n")
     }
 }

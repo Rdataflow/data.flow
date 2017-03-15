@@ -1,7 +1,7 @@
 # init and check everything to start flow
 flow.init <- function(resources, dir.commit, dir.output, dir.input, dir.input.old, dir.log, output.type, log.file) {
 
-    cat(nrow(resources), "resources to process...\n")
+    cat("\n=== ", nrow(resources), "resources to flow  ===\n")
 
     ### dir.xyz exists ??? - else dir.create
     for (i in c(dir.commit, dir.output, dir.input, dir.input.old, dir.log)) {

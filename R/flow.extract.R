@@ -1,6 +1,6 @@
-flow.extract <- function(resource, log.file, msg.console,
+flow.extract <- function(resource, log.file, log.email, msg.console,
                          val=c("Wert","wert","Value","value"),
-                         timekey=c("Jahr","jahr","Year","year")) {
+                         timekey=c("Jahr","jahr","Year","year"), warn.threshold = 0.01, lang = "de") {
 
     #extract.get (=download)
     cat(msg.console, "downloading... ")
@@ -42,7 +42,7 @@ flow.extract <- function(resource, log.file, msg.console,
         #verify structure and range of values
         cat(msg.console, "verifying...   ")
         extract.verify(dc$DATA$value, dc.old$DATA$value, val = dc$DSD$val, timekey = dc$DSD$timekey,
-                       log.detail = resource$log, log.file, resource.name = resource$name)
+                       log.detail = resource$log, log.file, log.email, resource.name = resource$name, warn.threshold, lang)
         ### will stop within extract.verify on broken data structure ...
     }
 
