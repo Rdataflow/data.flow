@@ -26,16 +26,16 @@ flow.extract <- function(resource, log.file, log.email, msg.console,
 
         ###fake difference to test for verify response
         # dc$DATA$value[1,value:=value+1]                                                 # -
-        # dc$DATA$value[2,value:=NA]                                                      # - # bug to fix: (subcode$del.Jahr == TRUE | subcode$gr.rel == TRUE) - Argument Länge 0
-        # dc$DATA$value[3,value:=Inf]                                                     # - # bug to fix: Argument Länge 0
+        # dc$DATA$value[2,value:=NA]                                                      # -
+        # dc$DATA$value[3,value:=Inf]                                                     # -
         # dc$DATA$value[4,value:=0]                                                       # -
         # dc$DATA$value[11,Jahr:="2099"]                                                  # info
         # dc$DATA$value[5,value:=1]                                                       # warn
-        # dc$DATA$value<-dc$DATA$value[Jahr!="2009"]                                      # warn
+        # dc$DATA$value<-dc$DATA$value[Jahr!="2008"]                                      # warn
         # dc$DATA$value[6,value:=-10000000]                                               # warn
-        # dc$DATA$value<-dc$DATA$value[111,Land:="LALALAND"]                              # expected: error & abort
-        # dc$DATA$value[1,Kanton:="Ausserschweiz"]                                        # expected: error & abort
-        # dc$DATA$value<-dc$DATA$value[Kanton!="Glarus"]                                  # error # bug to fix!!!!
+        # dc$DATA$value<-dc$DATA$value[111,Land:="LALALAND"]                              # error & abort
+        # dc$DATA$value[1,Kanton:="Ausserschweiz"]                                        # error & abort
+        # dc$DATA$value<-dc$DATA$value[Kanton!="Glarus"]                                  # error & abort
 
 
 

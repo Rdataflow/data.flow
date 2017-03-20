@@ -37,8 +37,8 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
 
             ### checking for differnt elements ocurring
             for (i in r$key) {
-                r$elem[[i]]$add <- setdiff(new[[i]],old[[i]])
-                r$elem[[i]]$del <- setdiff(old[[i]],new[[i]])
+                r$elem[[i]]$add <- setdiff(new[[i]], old[[i]])
+                r$elem[[i]]$del <- setdiff(old[[i]], new[[i]])
             }
             r$elem <- list.clean(r$elem, function(x) length(x)==0L, recursive = TRUE)
 
@@ -81,18 +81,21 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
 
             if (r$changed.lines > 0) {
                 r$changed<-changed.lines[, .N, by=c(r$timekey)]
-                names(r$changed) <- c(r$timekey,"count.per.time")
-                r$max <- changed.lines$rel.change[which.max(abs(changed.lines$rel.change))]
+                names(r$changed) <- c(r$timekey, "count.per.time")
 
-                if (abs(r$max) > warn.threshold) {
-                    r$subcodes["big.change"] <- TRUE
-                } else {
-                    r$subcodes["small.change"] <- TRUE
+                if (!is.na(max(changed.lines$rel.change))) {
+
+                    r$max <- changed.lines$rel.change[which.max(abs(changed.lines$rel.change))]
+
+                    if (abs(r$max) > warn.threshold) {
+                        r$subcodes["big.change"] <- TRUE
+                    } else {
+                        r$subcodes["small.change"] <- TRUE
+                    }
                 }
 
                 # write diff details to dedicated logfile
-                now<-Sys.time()
-                fwrite(changed.lines[,timestamp:=now], sep=";", quote=TRUE, showProgress=FALSE, append=TRUE, file=log.detail)
+                fwrite(changed.lines[, timestamp := r$timestamp], sep=";", quote=TRUE, showProgress=FALSE, append=TRUE, file=log.detail)
             }
         }
     }

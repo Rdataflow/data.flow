@@ -1,15 +1,15 @@
 log.to.file <- function(r, resource.name, log.file)
 {
-    out <- data.table('timestamp'=r$timestamp, 'resource.name'=resource.name,
-                      'status'=r$status, 'code'=r$code, 'subcode'=r$subcode,
-                      'time.added'="",
-                      'time.dropped'="",
-                      'elements.differing'="",
-                      'values.added'="",
-                      'values.dropped'="",
-                      'values.changed'="",
-                      'max.rel.change'="",
-                      'time.changed'="")
+    out <- data.table('timestamp' = r$timestamp, 'resource.name' = resource.name,
+                      'status' = r$status, 'code' = r$code, 'subcode' = r$subcode,
+                      'time.added' = "",
+                      'time.dropped' = "",
+                      'elements.differing' = "",
+                      'values.added' = "",
+                      'values.dropped' = "",
+                      'values.changed' = "",
+                      'max.rel.change' = "",
+                      'time.changed' = "")
 
 
     # time added
@@ -42,10 +42,11 @@ log.to.file <- function(r, resource.name, log.file)
     }
 
     # time.changed
-    if ("changed" %in% (r)) {
-        out[, time.changed := paste0(r$changed[[r$timekey]], collapse=",")]
-    }
+    out[, time.changed := paste0(sort(r$changed[[r$timekey]]), collapse = ",")]
 
     ### append output to log.file
-    fwrite(out, file = log.file, append = TRUE, quote = TRUE, sep = ";")
+    fwrite(out, file = log.file, append = TRUE, quote = TRUE, sep = ";", showProgress = FALSE)
+
+    r$out.log <- out
+    return(r)
 }

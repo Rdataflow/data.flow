@@ -6,7 +6,7 @@ extract.verify <- function(datacube, datacube.old, val=c("Wert","wert","Value","
     r <- eval.compare.datacubes(r)
 
     ## output to log
-    log.to.file(r, resource.name, log.file)
+    r <- log.to.file(r, resource.name, log.file)
 
     ## output to console
     log.to.console(r, resource.name)
@@ -19,6 +19,6 @@ extract.verify <- function(datacube, datacube.old, val=c("Wert","wert","Value","
 
     # stop on error, if we didn't stop already
     if(r$code >= 64) {
-        stop(paste("ERROR:", r$msg[[lang]]), "\n\n")
+        stop(paste0("ERROR: ", resource.name, r$msg[[lang]]), "\n\n")
     }
 }
