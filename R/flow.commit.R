@@ -10,8 +10,8 @@ flow.commit <- function(resources.output, resources.commit, log.file, dir.commit
         if (!dir.exists(paste0(dir.commit,"/.git"))) {
             system2(git.exe, "init")
         }
-        system2(git.exe, "add *")
-        system2(git.exe, "commit -a -m autocommit")
+        system2(git.exe, "add .")
+        system2(git.exe, paste0("commit -a -m ", Sys.Date()))
     }
 
     cat("\n=== COMMITTED SUCCESSFULLY ===                                             \n")

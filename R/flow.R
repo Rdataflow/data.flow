@@ -1,4 +1,5 @@
-#make data flow from source to destination
+# make data flow from source to destination
+#' @export
 flow <- function(resources, dir.commit, dir.output, dir.input, dir.input.old, dir.log, output.type = "csv", log.file, log.email, git.exe = "git") {
 
     resources <- flow.init(resources, dir.commit, dir.output, dir.input, dir.input.old, dir.log, output.type, log.file)
