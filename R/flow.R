@@ -22,5 +22,5 @@ flow <- function(resources, dir.commit, dir.output, dir.input, dir.input.old, di
     }
     ########################
     #on success COMMIT
-    flow.commit(resources$output, resources$commit, log.file, dir.commit, git.exe)
+    flow.commit(resources$output, resources$commit, log.file, dir.commit, dir.input.old, git.exe)
 }
