@@ -12,6 +12,7 @@ flow.commit <- function(resources.output, resources.commit, log.file, dir.commit
         }
         system2(git.exe, "add .")
         system2(git.exe, paste0("commit -a -m ", Sys.Date()))
+        system2(git.exe, "log -1")
     }
 
     cat("\n=== COMMITTED SUCCESSFULLY ===                                             \n")
