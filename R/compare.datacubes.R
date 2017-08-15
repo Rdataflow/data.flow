@@ -58,8 +58,8 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
             ### checking for different values (comparision by line)
             setkeyv(new, names(new)) # needed as a workaround due to odd crashing behaviour w/o keys
             setkeyv(old, names(old))
-            newlines <- fsetdiff(new, old)[, na:=is.na(value)]
-            oldlines <- fsetdiff(old, new)[, na:=is.na(value)]
+            newlines <- fsetdiff(new, old)[, na:=is.na(r$val)]
+            oldlines <- fsetdiff(old, new)[, na:=is.na(r$val)]
 
             if (nrow(newlines) + nrow(oldlines) == 0) {
                 r$subcodes["identical"] <- TRUE
@@ -80,8 +80,8 @@ compare.datacubes <- function(new, old, val=c("Wert","wert","Value","value"),
 
 
             if (r$changed.lines > 0) {
-                r$changed<-changed.lines[, .N, by=c(r$timekey)]
-                names(r$changed) <- c(r$timekey, "count.per.time")
+                r$changed <- changed.lines[, .N, by=c(r$timekey[1])]
+                names(r$changed) <- c(r$timekey[1], "count.per.time")
 
                 if (!is.na(max(changed.lines$rel.change))) {
 

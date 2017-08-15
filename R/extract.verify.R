@@ -1,5 +1,5 @@
 extract.verify <- function(datacube, datacube.old, val=c("Wert","wert","Value","value"),
-                           timekey=c("Jahr","jahr","Year","year"), log.detail, log.file, log.email, resource.name, warn.threshold, lang = "de") {
+                           timekey=c("Jahr","jahr","Year","year","Zeit"), log.detail, log.file, log.email, resource.name, warn.threshold, lang = "de") {
 
     r <- compare.datacubes(datacube, datacube.old, val, timekey, log.detail, warn.threshold)
 

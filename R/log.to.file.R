@@ -13,7 +13,7 @@ log.to.file <- function(r, resource.name, log.file)
 
 
     # time added
-    t <- r$elem[[r$timekey]]
+    t <- r$elem[[r$timekey[1]]]
     if (length(t$add) > 0) {
          out$time.added <- paste0("+", t$add, collapse="")
     }
@@ -24,7 +24,7 @@ log.to.file <- function(r, resource.name, log.file)
     }
 
     # elements.differing
-    elem.diff <- r$elem[names(r$elem) != r$timekey]
+    elem.diff <- r$elem[names(r$elem) != r$timekey[1]]
     out[, elements.differing := collapse.changes.in.elem.per.dim(elem.diff)]
 
     # values.added
@@ -42,7 +42,9 @@ log.to.file <- function(r, resource.name, log.file)
     }
 
     # time.changed
-    out[, time.changed := paste0(sort(r$changed[[r$timekey]]), collapse = ",")]
+    if(exists("changed", where = r)) {
+      out[, time.changed := paste0(sort(r$changed[[r$timekey[1]]]), collapse = ",")]
+    }
 
     ### append output to log.file
     fwrite(out, file = log.file, append = TRUE, quote = TRUE, sep = ";", showProgress = FALSE)

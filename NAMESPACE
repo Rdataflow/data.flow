@@ -1,4 +1,5 @@
-exportPattern("^[[:alpha:]]+")
+#exportPattern("^[[:alpha:]]+")
+export("flow")
 
 importFrom("data.table", "as.data.table", "copy", "fread", "fwrite", "CJ")
 importFrom("pxR", "read.px")

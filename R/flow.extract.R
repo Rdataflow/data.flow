@@ -1,6 +1,9 @@
 flow.extract <- function(resource, log.file, log.email, msg.console,
                          val=c("Wert","wert","Value","value"),
-                         timekey=c("Jahr","jahr","Year","year"), warn.threshold = 0.01, lang = "de") {
+                         timekey=c("Jahr","jahr","Year","year", "Year Code", "year code",
+                                   "Monat", "monat", "Month", "month",
+                                   "Zeit", "zeit", "Time", "time"),
+                         warn.threshold = 0.01, lang = "de") {
 
     #extract.get (=download)
     cat(msg.console, "downloading... ")
@@ -13,8 +16,8 @@ flow.extract <- function(resource, log.file, log.email, msg.console,
     stopifnot(is.data.table(dc$DATA$value))
 
     # add data structure definition (timekey, val) to dc
-    dc$DSD$timekey <- intersect(names(dc$DATA$value), c("Jahr","jahr","Year","year"))
-    dc$DSD$val     <- intersect(names(dc$DATA$value), c("Wert","wert","Value","value"))
+    dc$DSD$timekey <- intersect(names(dc$DATA$value), timekey)
+    dc$DSD$val     <- intersect(names(dc$DATA$value), val)
 
 
     #...

@@ -3,3 +3,4 @@
 .RData
 .Ruserdata
 datacubes_details.log
+helper/*
