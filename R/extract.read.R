@@ -16,6 +16,7 @@ extract.read <- function(file.input, type) {
     if (type == "csv") {
         dc <- list()
         dc$DATA$value <- fread(file.input, showProgress = FALSE)
+        dc$DATA$value$Value <- as.numeric(dc$DATA$value$Value)
     }
 
     # replace NA values with empty
