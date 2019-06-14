@@ -6,8 +6,15 @@ flow.extract <- function(resource, log.file, log.email, msg.console,
                          warn.threshold = 0.01, lang = "de") {
 
     #extract.get (=download)
-    cat(msg.console, "downloading... ")
-    download.file(resource$url, resource$input, quiet = TRUE, mode = "wb")
+    if (startsWith(resource$url, "http")) {
+        cat(msg.console, "downloading... ")
+        download.file(resource$url, resource$input, quiet = TRUE, mode = "wb")
+    }
+    else {
+        cat(msg.console, "copying... ")
+        file.copy(resource$url, resource$input)
+    }
+
     stopifnot(file.exists(resource$input))
 
     #extract.read (=read.px OR fread)
