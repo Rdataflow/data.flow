@@ -2,12 +2,13 @@ log.via.email <- function(r, resource.name, log.email, lang) {
 
     if (r$code > 0) {
         subject <- paste("data.flow:", resource.name, "-", r$status)
+        host <- system2("hostname")
 
         body <- paste('<html><head></head><body style="font-family: Calibri,Arial,sans-serif;">',
                       "<h2>Resource:", resource.name, "</h2>",
                       "<h3>Status:", r$status.html, "</h3>",
                       paste(r$msg.html[[lang]]),
-                      "<h4>Host:", system2("hostname"), "</h4>",
+                      "<h4>Host:", system2("hostname", stdout = TRUE), "</h4>",
                       "<hr />", "</p>",
                       "<h4>Detail-Report</h4>",
                       "<p>Code:", r$code, "</p>",
